@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Input CSS -->
+  <link rel="stylesheet" href="../css/main.css" charset="utf-8">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+    crossorigin="anonymous">
+  <title>Unit1_Stage1-4</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="home_container container-fluid">
+      <div class="middle_content">
+        <div class="title_content">
+          <h3 class="text-center mb-3"><strong>Stage 1-4 <i class="fas fa-circle separator" valign="center"></i>
+              Mission 2</strong>
+          </h3>
+          <p><strong>The following is an excerpt of an academic text. There are five errors in subject-verb agreement
+              and
+              marked as red. Type the correct verbs in the box provided.</strong></p>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 mb-5">
+            <div class="item">
+              <ul>
+                <li class="row">
+                  <span style="overflow: hidden; text-align: justify">
+                    In addition to these privately-run local higher education institutions, the government has also
+                    looked
+                    for renowned overseas universities to set up branch campuses in Hong Kong. For instance, the
+                    Savannah
+                    College of Art and Design (SCAD), which was founded in 1978 in the United States,
+                    <strong class="incorrect_text">sets</strong>
+                    <input type="text" id="q1" class="form-control m-1" style="display: inline;width: auto;">
+                    up its first Asian branch campus in Hong Kong in 2011 to offer undergraduate and postgraduate
+                    programmes
+                    in the field of art and design. Another example
+                    <strong class="incorrect_text">are</strong>
+                    <input type="text" id="q2" class="form-control m-1" style="display: inline;width: auto;">
+                    drawn from the Booth School of Business of the University of Chicago, which
+                    <strong class="incorrect_text">have</strong>
+                    <input type="text" id="q3" class="form-control m-1" style="display: inline;width: auto;">
+                    set up its first Asian branch campus in Singapore for 10 years, decided to move its Asian campus
+                    from
+                    Singapore to Hong Kong in 2014 to offer mainly taught postgraduate programmes in business
+                    management. The move
+                    <strong class="incorrect_text">imply</strong>
+                    <input type="text" id="q4" class="form-control m-1" style="display: inline;width: auto;">
+                    that Hong Kong has much better competitive advantage than Singapore because of Hong Kong’s closer
+                    tie with the ever growing market of higher education in the Chinese Mainland. The emergence of
+                    overseas
+                    universities’ branch campuses in Hong Kong, to a certain extent,
+                    <strong class="incorrect_text">suggest</strong>
+                    <input type="text" id="q5" class="form-control m-1" style="display: inline;width: auto;">
+                    the good potential for Hong Kong to be developed as a regional hub of higher education.
+                  </span>
+                  <small class="mt-5" style="overflow: hidden; text-align: justify">
+                    Lee, M. H. (2014). Hong Kong higher education in the 21st century. Hong Kong Teachers’ Center
+                    Journal, 13, 15-34
+                  </small>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="next_stage_button col-lg-12">
+            <button class="btn submit_btn mr-2" onclick="checkAnswer()"><strong>Conquer</strong></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function checkAnswer() {
+      var q_count = 5;
+      var userAnswers = new Array();
+      for (var i = 1; i <= q_count; i++) {
+        userAnswers[i - 1] = document.getElementById("q" + i).value.toLowerCase();
+      }
+      var answers = ["set", "is", "has", "implies", "suggests"];
+
+      var numCorrect = 0;
+      for (var i = 0; i < q_count; i++) {
+        if (userAnswers[i] == answers[i]) {
+          numCorrect++;
+        }
+      }
+      var score = numCorrect / q_count * 100;
+      window.location.href = '/done=stage1-4&score=' + score;
+    }
+  </script>
+
+</body>
+
+</html>
