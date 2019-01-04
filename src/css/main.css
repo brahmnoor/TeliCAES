@@ -284,3 +284,7 @@ select{
   margin: .5rem !important;
 }
 /* stage2-1 style end */
+
+.row {
+  line-height: 2.5rem;
+}
