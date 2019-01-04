@@ -89,6 +89,7 @@
                   <div class="row">
                     <strong class="d-lg-inline">4.</strong>
                     <div class="col-md-7 d-lg-inline">Hedges are used to discuss possibilities and probabilities.
+                    </div>
                     <div class="col-md-4 d-lg-inline float-lg-right text-right">
                       <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" name="inlineRadioOptions4" id="inlineRadio7"
@@ -230,14 +231,17 @@
 
   <script>
     function checkAnswer() {
-      var q_count = 20;
+      var q_count = 10;
       var userAnswers = new Array();
       var elem;
       for (var i = 1; i <= q_count; i++) {
-        elem = document.getElementById("inlineRadio" + i);
-        userAnswers[i - 1] = elem.checked;
+        var querySelectorText = 'input[name="inlineRadioOptions' + i + '"]:checked';
+        console.log(querySelectorText);
+        elem = document.querySelector(querySelectorText);
+        userAnswers[i - 1] = elem.value;
       }
-      var answers = [];
+      console.log(userAnswers);
+      var answers = ["true", "true", "false", "true", "true", "false", "false", "true", "false", "false"];
 
       var numCorrect = 0;
       for (var i = 0; i < q_count; i++) {
@@ -246,7 +250,7 @@
         }
       }
       var score = numCorrect / q_count * 100;
-      window.location.href = '/done=stage2-5&score=' + score;
+      window.location.href = '/done=stage6-5&score=' + score;
     }
   </script>
 
