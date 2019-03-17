@@ -183,8 +183,12 @@
               </ul>
             </div>
           </div>
+          <div>
+            <span id="answer"></span>
+          </div>
           <div class="next_stage_button col-lg-12">
-            <button class="btn submit_btn mr-2" onclick="checkAnswer()"><strong>Conquer</strong></button>
+            <button class="btn submit_btn mr-2" id="conquer" onclick="checkAnswer()"><strong>Conquer</strong></button>
+            <button class="btn submit_btn mr-2" id="dismiss" onclick="dismiss()" style="display:none" align="center"><strong>Dismiss</strong></button>
           </div>
         </div>
       </div>
@@ -192,15 +196,18 @@
   </div>
 
   <script>
+    var score = 0;
+
     function checkAnswer() {
-      var q_count = 15;
+      var answers = ['C', 'B', 'C', 'D', 'A', 'B', 'A', 'D', 'A', 'B', 'C', 'C', 'D', 'D', 'D'];
+      var q_count = answers.length;
       var userAnswers = new Array();
       var elem;
       for (var i = 1; i <= q_count; i++) {
         elem = document.getElementById("q" + i);
         userAnswers[i - 1] = elem.options[elem.selectedIndex].text
       }
-      var answers = ['C', 'B', 'C', 'D', 'A', 'B', 'A', 'D', 'A', 'B', 'C', 'C', 'D', 'D', 'D'];
+
 
       var numCorrect = 0;
       for (var i = 0; i < q_count; i++) {
@@ -208,7 +215,22 @@
           numCorrect++;
         }
       }
-      var score = numCorrect / q_count * 100;
+
+      var answers_html = "Answers: ";
+      for (var answer in answers) {
+        answers_html += answers[answer] + ", ";
+      }
+
+      document.getElementById("answer").innerHTML = answers_html.substr(0, answers_html.length - 2);
+
+      score = numCorrect / q_count * 100;
+      button1 = document.getElementById("conquer");
+      button1.style.display = "none";
+      button2 = document.getElementById("dismiss");
+      button2.style.display = "block";
+    }
+
+    function dismiss() {
       window.location.href = '/done=stage6-6&score=' + score;
     }
   </script>
