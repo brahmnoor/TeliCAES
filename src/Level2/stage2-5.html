@@ -213,49 +213,60 @@
             <span id="answer"></span>
           </div>
           <div class="next_stage_button col-lg-12">
-            <button class="btn submit_btn mr-2" id="conquer" onclick="checkAnswer()"><strong>Conquer</strong></button>
+            <button class="btn submit_btn mr-2" id="conquer" onclick="checkAnswer()" ><strong>Conquer</strong></button>
             <button class="btn submit_btn mr-2" id="dismiss" onclick="dismiss()" style="display:none" align="center"><strong>Dismiss</strong></button>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <script>
-    var score = 0;
+    </div>
 
-    function checkAnswer() {
-      var answers = ["not only", "In line with", "such as", "Apart from", "also", "but", "While", "for", "In particular", "However", "rather", "and", "such as", "It is evident that", "Further", "That is", "Indeed"];
-      var q_count = answers.length;
-      var userAnswers = new Array();
-      for (var i = 1; i <= q_count; i++) {
-        userAnswers[i - 1] = document.getElementById("q" + i).value.toLowerCase();
-      }
+    <script>
+      var score = 0;
+      var search = new URLSearchParams(window.location.search);
+      var attempted = search.get("attempted");
+      function checkAnswer() {
+        var q_count = answers.length;
+        var userAnswers = new Array();
+        var elem;
+        for (var i = 1; i <= q_count; i++) {
+           elem = document.getElementById("q" + i);
+           userAnswers[i - 1] = elem.options[elem.selectedIndex].text
+        }
 
-      var numCorrect = 0;
-      for (var i = 0; i < q_count; i++) {
-        if (userAnswers[i] == answers[i]) {
-          numCorrect++;
+        var answers = ["not only", "In line with", "such as", "Apart from", "also", "but", "While", "for", "In particular", "However", "rather", "and", "such as", "It is evident that", "Further", "That is", "Indeed"];
+
+        var numCorrect = 0;
+        for (var i = 0; i < q_count; i++) {
+          if (userAnswers[i] == answers[i]) {
+            numCorrect++;
+          }
+        }
+
+        var answers_html = "Answers: <br>";
+        var countAnswers = 1;
+        for (var answer in answers) {
+            answers_html +=  (countAnswers++) + ". " + answers[answer] + "<br>";
+        }
+        var score = numCorrect / q_count * 100;
+
+        if ( parseInt(attempted) == 0 ) {
+            window.location.href='/done=stage2-5&score=' + score;
+            return;
+        }
+        else{
+            document.getElementById("answer").innerHTML = answers_html.substr(0, answers_html.length-2);
+            button1 = document.getElementById("conquer");
+            button1.style.display = "none";
+            button2 = document.getElementById("dismiss");
+            button2.style.display = "block";
         }
       }
 
-      var answers_html = "Answers: ";
-      for (var answer in answers) {
-        answers_html += answers[answer] + ", ";
+      function dismiss(){
+        window.location.href='/done=stage2-5&score=' + score;
       }
-
-      document.getElementById("answer").innerHTML = answers_html.substr(0, answers_html.length - 2);
-
-      score = numCorrect / q_count * 100;
-      button1 = document.getElementById("conquer");
-      button1.style.display = "none";
-      button2 = document.getElementById("dismiss");
-      button2.style.display = "block";
-    }
-
-    function dismiss() {
-      window.location.href = '/done=stage2-5&score=' + score;
-    }
-  </script>
+    </script>
 
 </body>
 

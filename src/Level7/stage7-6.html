@@ -82,7 +82,7 @@
             <span id="answer"></span>
           </div>
           <div class="next_stage_button col-lg-12">
-            <button class="btn submit_btn mr-2" id="conquer" onclick="checkAnswer()"><strong>Conquer</strong></button>
+            <button class="btn submit_btn mr-2" id="conquer" onclick="checkAnswer()" ><strong>Conquer</strong></button>
             <button class="btn submit_btn mr-2" id="dismiss" onclick="dismiss()" style="display:none" align="center"><strong>Dismiss</strong></button>
           </div>
         </div>
@@ -92,7 +92,8 @@
 
   <script>
     var score = 0;
-
+    var search = new URLSearchParams(window.location.search);
+    var attempted = search.get("attempted");
     function checkAnswer() {
       var answers = ['exception', 'prosperity', 'poverty', 'announcement', 'predecessor'];
       var q_count = answers.length;
@@ -103,7 +104,6 @@
         userAnswers[i - 1] = elem.options[elem.selectedIndex].text
       }
 
-
       var numCorrect = 0;
       for (var i = 0; i < q_count; i++) {
         if (userAnswers[i] == answers[i]) {
@@ -111,24 +111,31 @@
         }
       }
 
-      var answers_html = "Answers: ";
+      var answers_html = "Answers: <br>";
+      var countAnswers = 1;
       for (var answer in answers) {
-        answers_html += answers[answer] + ", ";
+          answers_html +=  (countAnswers++) + ". " + answers[answer] + "<br>";
       }
+      score = numCorrect/q_count*100;
 
-      document.getElementById("answer").innerHTML = answers_html.substr(0, answers_html.length - 2);
-
-      score = numCorrect / q_count * 100;
-      button1 = document.getElementById("conquer");
-      button1.style.display = "none";
-      button2 = document.getElementById("dismiss");
-      button2.style.display = "block";
+      if ( parseInt(attempted) == 0 ) {
+          window.location.href='/done=stage7-6&score=' + score;
+          return;
+      }
+      else{
+          document.getElementById("answer").innerHTML = answers_html.substr(0, answers_html.length-2);
+          button1 = document.getElementById("conquer");
+          button1.style.display = "none";
+          button2 = document.getElementById("dismiss");
+          button2.style.display = "block";
+      }
     }
 
-    function dismiss() {
-      window.location.href = '/done=stage7-6&score=' + score;
+    function dismiss(){
+      window.location.href='/done=stage7-6&score=' + score;
     }
   </script>
+
 </body>
 
 </html>

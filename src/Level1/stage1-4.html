@@ -8,7 +8,8 @@
   <!-- Input CSS -->
   <link rel="stylesheet" href="../css/main.css" charset="utf-8">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+    crossorigin="anonymous">
   <title>Unit1_Stage1-4</title>
 </head>
 
@@ -35,27 +36,27 @@
                     for renowned overseas universities to set up branch campuses in Hong Kong. For instance, the
                     Savannah
                     College of Art and Design (SCAD), which was founded in 1978 in the United States,
-                    <strong class="incorrect_text">sets</strong>
+                    <strong class="incorrect_text">1.sets</strong>
                     <input type="text" id="q1" class="form-control m-1" style="display: inline;width: auto;">
                     up its first Asian branch campus in Hong Kong in 2011 to offer undergraduate and postgraduate
                     programmes
                     in the field of art and design. Another example
-                    <strong class="incorrect_text">are</strong>
+                    <strong class="incorrect_text">2.are</strong>
                     <input type="text" id="q2" class="form-control m-1" style="display: inline;width: auto;">
                     drawn from the Booth School of Business of the University of Chicago, which
-                    <strong class="incorrect_text">have</strong>
+                    <strong class="incorrect_text">3.have</strong>
                     <input type="text" id="q3" class="form-control m-1" style="display: inline;width: auto;">
                     set up its first Asian branch campus in Singapore for 10 years, decided to move its Asian campus
                     from
                     Singapore to Hong Kong in 2014 to offer mainly taught postgraduate programmes in business
                     management. The move
-                    <strong class="incorrect_text">imply</strong>
+                    <strong class="incorrect_text">4.imply</strong>
                     <input type="text" id="q4" class="form-control m-1" style="display: inline;width: auto;">
                     that Hong Kong has much better competitive advantage than Singapore because of Hong Kong’s closer
                     tie with the ever growing market of higher education in the Chinese Mainland. The emergence of
                     overseas
                     universities’ branch campuses in Hong Kong, to a certain extent,
-                    <strong class="incorrect_text">suggest</strong>
+                    <strong class="incorrect_text">5.suggest</strong>
                     <input type="text" id="q5" class="form-control m-1" style="display: inline;width: auto;">
                     the good potential for Hong Kong to be developed as a regional hub of higher education.
                   </span>
@@ -71,7 +72,7 @@
             <span id="answer"></span>
           </div>
           <div class="next_stage_button col-lg-12">
-            <button class="btn submit_btn mr-2" id="conquer" onclick="checkAnswer()"><strong>Conquer</strong></button>
+            <button class="btn submit_btn mr-2" id="conquer" onclick="checkAnswer()" ><strong>Conquer</strong></button>
             <button class="btn submit_btn mr-2" id="dismiss" onclick="dismiss()" style="display:none" align="center"><strong>Dismiss</strong></button>
           </div>
         </div>
@@ -81,15 +82,15 @@
 
   <script>
     var score = 0;
-
+    var search = new URLSearchParams(window.location.search);
+    var attempted = search.get("attempted");
     function checkAnswer() {
       var answers = ["set", "is", "has", "implies", "suggests"];
       var q_count = answers.length;
       var userAnswers = new Array();
       for (var i = 1; i <= q_count; i++) {
-        userAnswers[i - 1] = document.getElementById("q" + i).value.toLowerCase();
+        userAnswers[i-1] = document.getElementById("q" + i).value.toLowerCase();
       }
-
 
       var numCorrect = 0;
       for (var i = 0; i < q_count; i++) {
@@ -98,24 +99,31 @@
         }
       }
 
-      var answers_html = "Answers: ";
+      var answers_html = "Answers: <br>";
+      var countAnswers = 1;
       for (var answer in answers) {
-        answers_html += answers[answer] + ", ";
+          answers_html +=  (countAnswers++) + ". " + answers[answer] + "<br>";
       }
+      score = numCorrect/q_count*100;
 
-      document.getElementById("answer").innerHTML = answers_html.substr(0, answers_html.length - 2);
-
-      score = numCorrect / q_count * 100;
-      button1 = document.getElementById("conquer");
-      button1.style.display = "none";
-      button2 = document.getElementById("dismiss");
-      button2.style.display = "block";
+      if ( parseInt(attempted) == 0 ) {
+          window.location.href='/done=stage1-4&score=' + score;
+          return;
+      }
+      else{
+          document.getElementById("answer").innerHTML = answers_html.substr(0, answers_html.length-2);
+          button1 = document.getElementById("conquer");
+          button1.style.display = "none";
+          button2 = document.getElementById("dismiss");
+          button2.style.display = "block";
+      }
     }
 
-    function dismiss() {
-      window.location.href = '/done=stage1-4&score=' + score;
+    function dismiss(){
+      window.location.href='/done=stage1-4&score=' + score;
     }
   </script>
+
 </body>
 
 </html>
